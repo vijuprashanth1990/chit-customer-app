@@ -18,7 +18,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.22.0'   # use your Flutter version
+          flutter-version: '3.41.6'   # use your Flutter version
 
       # Build Flutter web
       - name: Build Web

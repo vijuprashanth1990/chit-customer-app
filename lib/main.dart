@@ -74,7 +74,7 @@ class _SearchPageState extends State<SearchPage> {
       // );
 
       // Initialize the Fetch API architecture
-      final client = FetchClient(mode: RequestMode.cors);
+      final client = FetchClient(mode: RequestMode.noCors);
 
       final response = await client.post(
         Uri.parse(paymentListAppUrl),
@@ -454,7 +454,7 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> {
       // final response = await http.get(url);
 
       // Initialize the Fetch API architecture
-      final client = FetchClient(mode: RequestMode.cors);
+      final client = FetchClient(mode: RequestMode.noCors);
 
       final response = await client.post(
         Uri.parse(groupWiseAppUrl),
@@ -630,7 +630,7 @@ class _BiddingDetailsPageState extends State<BiddingDetailsPage> {
 
       // final response = await http.get(url);
 
-      final client = FetchClient(mode: RequestMode.cors);
+      final client = FetchClient(mode: RequestMode.noCors);
 
       final response = await client.post(
         Uri.parse(groupWiseAppUrl),

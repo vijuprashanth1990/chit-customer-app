@@ -50,40 +50,51 @@ class _SearchPageState extends State<SearchPage> {
   Future<void> search() async {
     setState(() => isLoading = true);
 
-    final account = await _googleSignIn.signIn();
-    final auth = await account?.authentication;
-    // 👉 Send idToken to Apps Script backend for verification
-    final idToken = auth?.idToken;
+    try {
+      final account = await _googleSignIn.signIn();
+      final auth = await account?.authentication;
+      // 👉 Send idToken to Apps Script backend for verification
+      final idToken = auth?.idToken;
 
-    final uri = Uri.parse(paymentListAppUrl).replace(
-      queryParameters: {
-        'idToken': idToken,
-        if (chitIdController.text.isNotEmpty) 'chitId': chitIdController.text,
-        if (englishNameController.text.isNotEmpty)
-          'englishName': englishNameController.text,
-        if (areaController.text.isNotEmpty) 'area': areaController.text,
-        if (agentController.text.isNotEmpty) 'agent': agentController.text,
-        if (phoneController.text.isNotEmpty) 'phone': phoneController.text,
-        if (groupController.text.isNotEmpty)
-          'groupNameList': groupController.text,
-      },
-    );
+      final uri = Uri.parse(paymentListAppUrl).replace(
+        queryParameters: {
+          'idToken': idToken,
+          if (chitIdController.text.isNotEmpty) 'chitId': chitIdController.text,
+          if (englishNameController.text.isNotEmpty)
+            'englishName': englishNameController.text,
+          if (areaController.text.isNotEmpty) 'area': areaController.text,
+          if (agentController.text.isNotEmpty) 'agent': agentController.text,
+          if (phoneController.text.isNotEmpty) 'phone': phoneController.text,
+          if (groupController.text.isNotEmpty)
+            'groupNameList': groupController.text,
+        },
+      );
 
-    final response = await http.get(uri);
-    if (response.statusCode == 200) {
-      setState(() {
-        results = List<List<dynamic>>.from(json.decode(response.body));
-        isLoading = false;
-      });
-    } else {
-      if (mounted) {
+      final response = await http.get(uri);
+      if (response.statusCode == 200) {
         setState(() {
-          results = [];
+          results = List<List<dynamic>>.from(json.decode(response.body));
           isLoading = false;
         });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Error: ${response.statusCode}")),
-        );
+      } else {
+        if (mounted) {
+          setState(() {
+            results = [];
+            isLoading = false;
+          });
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Error: ${response.statusCode}")),
+          );
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("Error: $e")));
       }
     }
   }
@@ -384,11 +395,16 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> {
   }
 
   Future<void> fetchGroupData() async {
-    final url = Uri.parse(
-      groupWiseAppUrl,
-    ).replace(queryParameters: {'sheet': widget.sheetName});
-
     try {
+      final account = await _googleSignIn.signIn();
+      final auth = await account?.authentication;
+      // 👉 Send idToken to Apps Script backend for verification
+      final idToken = auth?.idToken;
+
+      final url = Uri.parse(groupWiseAppUrl).replace(
+        queryParameters: {'idToken': idToken, 'sheet': widget.sheetName},
+      );
+
       final response = await http.get(url);
       if (response.statusCode == 200) {
         final decoded = json.decode(response.body);
@@ -539,11 +555,20 @@ class _BiddingDetailsPageState extends State<BiddingDetailsPage> {
   }
 
   Future<void> fetchBiddingDetails() async {
-    final url = Uri.parse(groupWiseAppUrl).replace(
-      queryParameters: {'func': 'lastBidding', 'groupName': widget.groupName},
-    );
-
     try {
+      final account = await _googleSignIn.signIn();
+      final auth = await account?.authentication;
+      // 👉 Send idToken to Apps Script backend for verification
+      final idToken = auth?.idToken;
+
+      final url = Uri.parse(groupWiseAppUrl).replace(
+        queryParameters: {
+          'idToken': idToken,
+          'func': 'lastBidding',
+          'groupName': widget.groupName,
+        },
+      );
+
       final response = await http.get(url);
       if (response.statusCode == 200) {
         final decoded = json.decode(response.body);

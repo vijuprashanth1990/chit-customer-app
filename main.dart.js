@@ -84710,9 +84710,9 @@ v6(a){var s=0,r=A.R(t.H),q=1,p=[],o=this,n,m,l,k,j,i,h,g
 var $async$v6=A.S(function(b,c){if(b===1){p.push(c)
 s=q}for(;;)switch(s){case 0:o.ai(new A.aoj(o))
 q=3
-k=A.fN("https://script.google.com/macros/s/AKfycbwjdfdcXdFjP7jni5iEL0VbMyyljLsr_IUmtMI2DgaxofsiHRnqX2K33EPMztVZEzOjnw/exec")
+k=A.fN("https://script.google.com/macros/s/AKfycbzTPz4dr1CJN72j3PE8vHQWmdwcOI0R4rxSLoHY3qpnW5wwmnSSrGTBggKYgvTBFIAEAw/exec")
 j=t.N
-i=A.as(["Content-Type","text/plain; charset=UTF-8"],j,j)
+i=A.as(["Content-Type","text/plain"],j,j)
 n=A.u(j,t.ob)
 J.eD(n,"idToken",$.arw)
 j=o.e.a.a
@@ -84869,7 +84869,7 @@ var $async$yK=A.S(function(a,b){if(a===1){p.push(b)
 s=q}for(;;)switch(s){case 0:q=3
 k=A.fN(u.C)
 j=t.N
-i=A.as(["Content-Type","text/plain; charset=UTF-8"],j,j)
+i=A.as(["Content-Type","text/plain"],j,j)
 s=6
 return A.U(A.ave(k,B.bd.yH(A.as(["idToken",$.arw,"sheet",o.a.c],j,t.ob),null),i),$async$yK)
 case 6:n=b
@@ -84941,7 +84941,7 @@ var $async$yJ=A.S(function(a,b){if(a===1){p.push(b)
 s=q}for(;;)switch(s){case 0:q=3
 l=A.fN(u.C)
 k=t.N
-j=A.as(["Content-Type","text/plain; charset=UTF-8"],k,k)
+j=A.as(["Content-Type","text/plain"],k,k)
 s=6
 return A.U(A.ave(l,B.bd.yH(A.as(["idToken",$.arw,"func","lastBidding","groupName",o.a.c],k,t.ob),null),j),$async$yJ)
 case 6:n=b

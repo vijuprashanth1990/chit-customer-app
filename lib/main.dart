@@ -11,8 +11,10 @@ final GoogleSignIn _googleSignIn = GoogleSignIn(
   scopes: ['email'],
 );
 
+String? idToken = "";
+
 final paymentListAppUrl =
-    "https://script.google.com/macros/s/AKfycbwXfiFp5VEsXk2b4zf5moOwpMcGGKXbygL48O3zGydUCzHnZM1oBhpXwFulMud82xMNug/exec"; // Replace with deployed script URL
+    "https://script.google.com/macros/s/AKfycbzYxu-aQmHe9SH-kqwJzbemPzIMgAlfqdUs55GXcTuLcn_QChxHOViC9tiLepCVB91Y_Q/exec"; // Replace with deployed script URL
 
 final groupWiseAppUrl =
     "https://script.google.com/macros/s/AKfycbyT5iNgac-vKmKRAOdRarMWsK4sfaQ4DhmswfFY_1_jl6o6hfirhdR7Zjw9ZJFNoD0z5w/exec";
@@ -51,10 +53,10 @@ class _SearchPageState extends State<SearchPage> {
     setState(() => isLoading = true);
 
     try {
-      final account = await _googleSignIn.signIn();
-      final auth = await account?.authentication;
-      // 👉 Send idToken to Apps Script backend for verification
-      final idToken = auth?.idToken;
+      // final account = await _googleSignIn.signIn();
+      // final auth = await account?.authentication;
+      // // 👉 Send idToken to Apps Script backend for verification
+      // final idToken = auth?.idToken;
 
       final uri = Uri.parse(paymentListAppUrl).replace(
         queryParameters: {
@@ -166,6 +168,25 @@ class _SearchPageState extends State<SearchPage> {
                       ),
                       SizedBox(width: 16), // spacing between buttons
                       ElevatedButton(onPressed: search, child: Text("Search")),
+                      ElevatedButton(
+                        onPressed: () async {
+                          final account = await _googleSignIn.signInSilently();
+                          if (account == null) {
+                            // If not signed in, prompt with Google button
+                            await _googleSignIn.signInSilently();
+                          }
+                          final auth = await account?.authentication;
+                          idToken = auth?.idToken;
+
+                          if (idToken != null) {
+                            print("Got ID Token: $idToken");
+                            // Send to backend
+                          } else {
+                            print("No ID Token received");
+                          }
+                        },
+                        child: const Text("Sign in with Google"),
+                      ),
                     ],
                   ),
 
@@ -396,10 +417,10 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> {
 
   Future<void> fetchGroupData() async {
     try {
-      final account = await _googleSignIn.signIn();
-      final auth = await account?.authentication;
-      // 👉 Send idToken to Apps Script backend for verification
-      final idToken = auth?.idToken;
+      // final account = await _googleSignIn.signIn();
+      // final auth = await account?.authentication;
+      // // 👉 Send idToken to Apps Script backend for verification
+      // final idToken = auth?.idToken;
 
       final url = Uri.parse(groupWiseAppUrl).replace(
         queryParameters: {'idToken': idToken, 'sheet': widget.sheetName},
@@ -556,10 +577,10 @@ class _BiddingDetailsPageState extends State<BiddingDetailsPage> {
 
   Future<void> fetchBiddingDetails() async {
     try {
-      final account = await _googleSignIn.signIn();
-      final auth = await account?.authentication;
-      // 👉 Send idToken to Apps Script backend for verification
-      final idToken = auth?.idToken;
+      // final account = await _googleSignIn.signIn();
+      // final auth = await account?.authentication;
+      // // 👉 Send idToken to Apps Script backend for verification
+      // final idToken = auth?.idToken;
 
       final url = Uri.parse(groupWiseAppUrl).replace(
         queryParameters: {

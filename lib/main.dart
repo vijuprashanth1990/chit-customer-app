@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:google_sign_in/google_sign_in.dart';
 
 void main() => runApp(PaymentListApp());
 
+final GoogleSignIn _googleSignIn = GoogleSignIn(
+  clientId:
+      "386741301576-u6cobasvgsii4bu3io0fgdunq0iapumd.apps.googleusercontent.com",
+  scopes: ['email'],
+);
+
 final paymentListAppUrl =
-    "https://script.google.com/macros/s/AKfycbykrfdhmXHYEZjRFxw9oYLEL3JPKLvac2dYzRNY39DxYYcqA3uNf5kNNTBUaW6tN6Ecmw/exec"; // Replace with deployed script URL
+    "https://script.google.com/macros/s/AKfycbwXfiFp5VEsXk2b4zf5moOwpMcGGKXbygL48O3zGydUCzHnZM1oBhpXwFulMud82xMNug/exec"; // Replace with deployed script URL
 
 final groupWiseAppUrl =
     "https://script.google.com/macros/s/AKfycbyT5iNgac-vKmKRAOdRarMWsK4sfaQ4DhmswfFY_1_jl6o6hfirhdR7Zjw9ZJFNoD0z5w/exec";
@@ -42,8 +49,15 @@ class _SearchPageState extends State<SearchPage> {
 
   Future<void> search() async {
     setState(() => isLoading = true);
+
+    final account = await _googleSignIn.signIn();
+    final auth = await account?.authentication;
+    // 👉 Send idToken to Apps Script backend for verification
+    final idToken = auth?.idToken;
+
     final uri = Uri.parse(paymentListAppUrl).replace(
       queryParameters: {
+        'idToken': idToken,
         if (chitIdController.text.isNotEmpty) 'chitId': chitIdController.text,
         if (englishNameController.text.isNotEmpty)
           'englishName': englishNameController.text,

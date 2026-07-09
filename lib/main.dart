@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+// import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:fetch_client/fetch_client.dart';
 
 void main() => runApp(PaymentListApp());
 
@@ -72,7 +73,10 @@ class _SearchPageState extends State<SearchPage> {
       //   },
       // );
 
-      final response = await http.post(
+      // Initialize the Fetch API architecture
+      final client = FetchClient(mode: RequestMode.cors);
+
+      final response = await client.post(
         Uri.parse(paymentListAppUrl),
         headers: {
           // text/plain is mandatory to bypass CORS preflight on Flutter Web
@@ -449,7 +453,10 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> {
 
       // final response = await http.get(url);
 
-      final response = await http.post(
+      // Initialize the Fetch API architecture
+      final client = FetchClient(mode: RequestMode.cors);
+
+      final response = await client.post(
         Uri.parse(groupWiseAppUrl),
         headers: {
           // text/plain is mandatory to bypass CORS preflight on Flutter Web
@@ -623,7 +630,9 @@ class _BiddingDetailsPageState extends State<BiddingDetailsPage> {
 
       // final response = await http.get(url);
 
-      final response = await http.post(
+      final client = FetchClient(mode: RequestMode.cors);
+
+      final response = await client.post(
         Uri.parse(groupWiseAppUrl),
         headers: {
           // text/plain is mandatory to bypass CORS preflight on Flutter Web

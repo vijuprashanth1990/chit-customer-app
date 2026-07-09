@@ -85147,9 +85147,9 @@ var $async$vd=A.O(function(b,c){if(b===1){p.push(c)
 s=q}for(;;)switch(s){case 0:o.ai(new A.aoW(o))
 q=3
 n=A.atE(B.km)
-j=A.fP("https://script.google.com/macros/s/AKfycbzaUsuRUuf8AOMr15SDO7HV53k5juVCpEYnM9lv0dvyimPtCkRXavXz3qSF1UBQboHGeA/exec")
+j=A.fP("https://script.google.com/macros/s/AKfycby4vYPo5iDoXKoG1R2wxGN-D6vCVupAgLOcDlr6ZGFYCj2V8O6tSNXKA6GWK9frs4TTyw/exec")
 i=t.N
-h=A.at(["Content-Type","text/plain"],i,i)
+h=A.at(["Content-Type","application/json"],i,i)
 m=A.u(i,t.ob)
 J.eD(m,"idToken",$.asc)
 i=o.e.a.a
@@ -85307,7 +85307,7 @@ s=q}for(;;)switch(s){case 0:q=3
 n=A.atE(B.km)
 j=t.N
 s=6
-return A.U(n.ne("POST",A.fP(u.C),A.at(["Content-Type","text/plain"],j,j),B.bd.yP(A.at(["idToken",$.asc,"sheet",o.a.c],j,t.ob),null),null),$async$yS)
+return A.U(n.ne("POST",A.fP(u.C),A.at(["Content-Type","application/json"],j,j),B.bd.yP(A.at(["idToken",$.asc,"sheet",o.a.c],j,t.ob),null),null),$async$yS)
 case 6:m=b
 if(m.b===200){j=m
 l=B.bd.dW(0,A.YW(A.YM(j.e).c.a.h(0,"charset")).dW(0,j.w))
@@ -85378,7 +85378,7 @@ s=q}for(;;)switch(s){case 0:q=3
 n=A.atE(B.km)
 k=t.N
 s=6
-return A.U(n.ne("POST",A.fP(u.C),A.at(["Content-Type","text/plain"],k,k),B.bd.yP(A.at(["idToken",$.asc,"func","lastBidding","groupName",o.a.c],k,t.ob),null),null),$async$yR)
+return A.U(n.ne("POST",A.fP(u.C),A.at(["Content-Type","application/json"],k,k),B.bd.yP(A.at(["idToken",$.asc,"func","lastBidding","groupName",o.a.c],k,t.ob),null),null),$async$yR)
 case 6:m=b
 if(m.b===200){k=m
 l=B.bd.dW(0,A.YW(A.YM(k.e).c.a.h(0,"charset")).dW(0,k.w))

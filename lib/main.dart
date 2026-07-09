@@ -14,7 +14,7 @@ final GoogleSignIn _googleSignIn = GoogleSignIn(
 String? idToken = "";
 
 final paymentListAppUrl =
-    "https://script.google.com/macros/s/AKfycbzYxu-aQmHe9SH-kqwJzbemPzIMgAlfqdUs55GXcTuLcn_QChxHOViC9tiLepCVB91Y_Q/exec"; // Replace with deployed script URL
+    "https://script.google.com/macros/s/AKfycbx4vMjvl18hDW5cyeIFaR52VtdfCoKuCNcC0nVg41IfX6K5t2bm6aWD_1Y8k1MsjJMAlg/exec"; // Replace with deployed script URL
 
 final groupWiseAppUrl =
     "https://script.google.com/macros/s/AKfycbyT5iNgac-vKmKRAOdRarMWsK4sfaQ4DhmswfFY_1_jl6o6hfirhdR7Zjw9ZJFNoD0z5w/exec";
@@ -114,6 +114,23 @@ class _SearchPageState extends State<SearchPage> {
     });
   }
 
+  void getIdToken() async {
+    var account = await _googleSignIn.signInSilently();
+    if (!(account != null)) {
+      // If not signed in, prompt with Google button
+      account = await _googleSignIn.signIn();
+    }
+    final auth = await account?.authentication;
+    idToken = auth?.idToken;
+
+    if (idToken != null) {
+      print("Got ID Token: $idToken");
+      // Send to backend
+    } else {
+      print("No ID Token received");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -169,22 +186,7 @@ class _SearchPageState extends State<SearchPage> {
                       SizedBox(width: 16), // spacing between buttons
                       ElevatedButton(onPressed: search, child: Text("Search")),
                       ElevatedButton(
-                        onPressed: () async {
-                          final account = await _googleSignIn.signInSilently();
-                          if (account == null) {
-                            // If not signed in, prompt with Google button
-                            await _googleSignIn.signInSilently();
-                          }
-                          final auth = await account?.authentication;
-                          idToken = auth?.idToken;
-
-                          if (idToken != null) {
-                            print("Got ID Token: $idToken");
-                            // Send to backend
-                          } else {
-                            print("No ID Token received");
-                          }
-                        },
+                        onPressed: getIdToken,
                         child: const Text("Sign in with Google"),
                       ),
                     ],

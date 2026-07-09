@@ -15,7 +15,7 @@ final GoogleSignIn _googleSignIn = GoogleSignIn(
 String? idToken = "";
 
 final paymentListAppUrl =
-    "https://script.google.com/macros/s/AKfycbzaUsuRUuf8AOMr15SDO7HV53k5juVCpEYnM9lv0dvyimPtCkRXavXz3qSF1UBQboHGeA/exec"; // Replace with deployed script URL
+    "https://script.google.com/macros/s/AKfycby4vYPo5iDoXKoG1R2wxGN-D6vCVupAgLOcDlr6ZGFYCj2V8O6tSNXKA6GWK9frs4TTyw/exec"; // Replace with deployed script URL
 
 final groupWiseAppUrl =
     "https://script.google.com/macros/s/AKfycbyT5iNgac-vKmKRAOdRarMWsK4sfaQ4DhmswfFY_1_jl6o6hfirhdR7Zjw9ZJFNoD0z5w/exec";
@@ -80,7 +80,7 @@ class _SearchPageState extends State<SearchPage> {
         Uri.parse(paymentListAppUrl),
         headers: {
           // text/plain is mandatory to bypass CORS preflight on Flutter Web
-          'Content-Type': 'text/plain',
+          'Content-Type': 'application/json',
         },
         body: jsonEncode({
           'idToken': idToken,
@@ -460,7 +460,7 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> {
         Uri.parse(groupWiseAppUrl),
         headers: {
           // text/plain is mandatory to bypass CORS preflight on Flutter Web
-          'Content-Type': 'text/plain',
+          'Content-Type': 'application/json',
         },
         body: jsonEncode({'idToken': idToken, 'sheet': widget.sheetName}),
       );
@@ -636,7 +636,7 @@ class _BiddingDetailsPageState extends State<BiddingDetailsPage> {
         Uri.parse(groupWiseAppUrl),
         headers: {
           // text/plain is mandatory to bypass CORS preflight on Flutter Web
-          'Content-Type': 'text/plain',
+          'Content-Type': 'application/json',
         },
         body: jsonEncode({
           'idToken': idToken,

@@ -14,7 +14,7 @@ final GoogleSignIn _googleSignIn = GoogleSignIn(
 String? idToken = "";
 
 final paymentListAppUrl =
-    "https://script.google.com/macros/s/AKfycbyIv-upJuLFWLfXLlsqAzqBYlBxTs3-csOonBYWwXKljXzgrlkRuAXAhe561izaND6dmA/exec"; // Replace with deployed script URL
+    "https://script.google.com/macros/s/AKfycbwjdfdcXdFjP7jni5iEL0VbMyyljLsr_IUmtMI2DgaxofsiHRnqX2K33EPMztVZEzOjnw/exec"; // Replace with deployed script URL
 
 final groupWiseAppUrl =
     "https://script.google.com/macros/s/AKfycbyT5iNgac-vKmKRAOdRarMWsK4sfaQ4DhmswfFY_1_jl6o6hfirhdR7Zjw9ZJFNoD0z5w/exec";
@@ -58,8 +58,27 @@ class _SearchPageState extends State<SearchPage> {
       // // 👉 Send idToken to Apps Script backend for verification
       // final idToken = auth?.idToken;
 
-      final uri = Uri.parse(paymentListAppUrl).replace(
-        queryParameters: {
+      // final uri = Uri.parse(paymentListAppUrl).replace(
+      //   queryParameters: {
+      //     'idToken': idToken,
+      //     if (chitIdController.text.isNotEmpty) 'chitId': chitIdController.text,
+      //     if (englishNameController.text.isNotEmpty)
+      //       'englishName': englishNameController.text,
+      //     if (areaController.text.isNotEmpty) 'area': areaController.text,
+      //     if (agentController.text.isNotEmpty) 'agent': agentController.text,
+      //     if (phoneController.text.isNotEmpty) 'phone': phoneController.text,
+      //     if (groupController.text.isNotEmpty)
+      //       'groupNameList': groupController.text,
+      //   },
+      // );
+
+      final response = await http.post(
+        Uri.parse(paymentListAppUrl),
+        headers: {
+          // text/plain is mandatory to bypass CORS preflight on Flutter Web
+          'Content-Type': 'text/plain; charset=UTF-8',
+        },
+        body: jsonEncode({
           'idToken': idToken,
           if (chitIdController.text.isNotEmpty) 'chitId': chitIdController.text,
           if (englishNameController.text.isNotEmpty)
@@ -69,10 +88,10 @@ class _SearchPageState extends State<SearchPage> {
           if (phoneController.text.isNotEmpty) 'phone': phoneController.text,
           if (groupController.text.isNotEmpty)
             'groupNameList': groupController.text,
-        },
+        }),
       );
 
-      final response = await http.get(uri);
+      // final response = await http.get(uri);
       if (response.statusCode == 200) {
         setState(() {
           results = List<List<dynamic>>.from(json.decode(response.body));
@@ -424,11 +443,21 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> {
       // // 👉 Send idToken to Apps Script backend for verification
       // final idToken = auth?.idToken;
 
-      final url = Uri.parse(groupWiseAppUrl).replace(
-        queryParameters: {'idToken': idToken, 'sheet': widget.sheetName},
+      // final url = Uri.parse(groupWiseAppUrl).replace(
+      //   queryParameters: {'idToken': idToken, 'sheet': widget.sheetName},
+      // );
+
+      // final response = await http.get(url);
+
+      final response = await http.post(
+        Uri.parse(groupWiseAppUrl),
+        headers: {
+          // text/plain is mandatory to bypass CORS preflight on Flutter Web
+          'Content-Type': 'text/plain; charset=UTF-8',
+        },
+        body: jsonEncode({'idToken': idToken, 'sheet': widget.sheetName}),
       );
 
-      final response = await http.get(url);
       if (response.statusCode == 200) {
         final decoded = json.decode(response.body);
 
@@ -584,15 +613,29 @@ class _BiddingDetailsPageState extends State<BiddingDetailsPage> {
       // // 👉 Send idToken to Apps Script backend for verification
       // final idToken = auth?.idToken;
 
-      final url = Uri.parse(groupWiseAppUrl).replace(
-        queryParameters: {
+      // final url = Uri.parse(groupWiseAppUrl).replace(
+      //   queryParameters: {
+      //     'idToken': idToken,
+      //     'func': 'lastBidding',
+      //     'groupName': widget.groupName,
+      //   },
+      // );
+
+      // final response = await http.get(url);
+
+      final response = await http.post(
+        Uri.parse(groupWiseAppUrl),
+        headers: {
+          // text/plain is mandatory to bypass CORS preflight on Flutter Web
+          'Content-Type': 'text/plain; charset=UTF-8',
+        },
+        body: jsonEncode({
           'idToken': idToken,
           'func': 'lastBidding',
           'groupName': widget.groupName,
-        },
+        }),
       );
 
-      final response = await http.get(url);
       if (response.statusCode == 200) {
         final decoded = json.decode(response.body);
         setState(() {

@@ -59,30 +59,8 @@ class _SearchPageState extends State<SearchPage> {
       // // 👉 Send idToken to Apps Script backend for verification
       // final idToken = auth?.idToken;
 
-      // final uri = Uri.parse(paymentListAppUrl).replace(
-      //   queryParameters: {
-      //     'idToken': idToken,
-      //     if (chitIdController.text.isNotEmpty) 'chitId': chitIdController.text,
-      //     if (englishNameController.text.isNotEmpty)
-      //       'englishName': englishNameController.text,
-      //     if (areaController.text.isNotEmpty) 'area': areaController.text,
-      //     if (agentController.text.isNotEmpty) 'agent': agentController.text,
-      //     if (phoneController.text.isNotEmpty) 'phone': phoneController.text,
-      //     if (groupController.text.isNotEmpty)
-      //       'groupNameList': groupController.text,
-      //   },
-      // );
-
-      // Initialize the Fetch API architecture
-      final client = FetchClient(mode: RequestMode.noCors);
-
-      final response = await client.post(
-        Uri.parse(paymentListAppUrl),
-        headers: {
-          // text/plain is mandatory to bypass CORS preflight on Flutter Web
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode({
+      final uri = Uri.parse(paymentListAppUrl).replace(
+        queryParameters: {
           'idToken': idToken,
           if (chitIdController.text.isNotEmpty) 'chitId': chitIdController.text,
           if (englishNameController.text.isNotEmpty)
@@ -92,8 +70,32 @@ class _SearchPageState extends State<SearchPage> {
           if (phoneController.text.isNotEmpty) 'phone': phoneController.text,
           if (groupController.text.isNotEmpty)
             'groupNameList': groupController.text,
-        }),
+        },
       );
+
+      // Initialize the Fetch API architecture
+      final client = FetchClient(mode: RequestMode.noCors);
+
+      final response = await client.get(uri);
+
+      // final response = await client.post(
+      //   Uri.parse(paymentListAppUrl),
+      //   headers: {
+      //     // text/plain is mandatory to bypass CORS preflight on Flutter Web
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: jsonEncode({
+      //     'idToken': idToken,
+      //     if (chitIdController.text.isNotEmpty) 'chitId': chitIdController.text,
+      //     if (englishNameController.text.isNotEmpty)
+      //       'englishName': englishNameController.text,
+      //     if (areaController.text.isNotEmpty) 'area': areaController.text,
+      //     if (agentController.text.isNotEmpty) 'agent': agentController.text,
+      //     if (phoneController.text.isNotEmpty) 'phone': phoneController.text,
+      //     if (groupController.text.isNotEmpty)
+      //       'groupNameList': groupController.text,
+      //   }),
+      // );
 
       // final response = await http.get(uri);
       if (response.statusCode == 200) {

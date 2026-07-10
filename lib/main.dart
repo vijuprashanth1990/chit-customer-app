@@ -15,7 +15,7 @@ final GoogleSignIn _googleSignIn = GoogleSignIn(
 String? idToken = "";
 
 final paymentListAppUrl =
-    "https://script.google.com/macros/s/AKfycbyc85s0k47XZa-DjUCJEFsQnKQnFk3PST_Qb5UldF4Y5nLQ1ELIGSHEl3iWQhXwnSQ7CA/exec"; // Replace with deployed script URL
+    "https://script.google.com/macros/s/AKfycbyewFO2fMVFokUJfHmUfx31mlj96s3UzuH0UdLhx2BuNIp5kYqVWYvKVUjIPdrNzcxZBg/exec"; // Replace with deployed script URL
 
 final groupWiseAppUrl =
     "https://script.google.com/macros/s/AKfycbyT5iNgac-vKmKRAOdRarMWsK4sfaQ4DhmswfFY_1_jl6o6hfirhdR7Zjw9ZJFNoD0z5w/exec";

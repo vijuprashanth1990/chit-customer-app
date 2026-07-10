@@ -74,9 +74,9 @@ class _SearchPageState extends State<SearchPage> {
       );
 
       // Initialize the Fetch API architecture
-      final client = FetchClient(mode: RequestMode.noCors);
+      // final client = FetchClient(mode: RequestMode.noCors);
 
-      final response = await client.get(uri);
+      final response = await http.get(uri);
 
       // final response = await client.post(
       //   Uri.parse(paymentListAppUrl),

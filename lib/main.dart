@@ -18,7 +18,7 @@ final paymentListAppUrl =
     "https://script.google.com/macros/s/AKfycbxnpyB1LH8oouHsgYttKN-6Vfceb4-tQWVxYE5oht9OSko4bavxV3a6fLbwM_O3iNPl_g/exec"; // Replace with deployed script URL
 
 final groupWiseAppUrl =
-    "https://script.google.com/macros/s/AKfycbw7Vn6WVtJIeiRvA76-7ffSdhHQ1npiZzL_YCHXPa7c827GmRNWEZMM5PtKdJFcDplIpw/exec";
+    "https://script.google.com/macros/s/AKfycbyFv2XeRIsn7jFoVvHG-x8ZKpsbcTKiAdHJo-N7BjjNmjRaFvYmcmgqjlhstdtabW3UuQ/exec";
 
 class PaymentListApp extends StatelessWidget {
   const PaymentListApp({super.key});

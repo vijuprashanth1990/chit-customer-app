@@ -15,7 +15,7 @@ final GoogleSignIn _googleSignIn = GoogleSignIn(
 String? idToken = "";
 
 final paymentListAppUrl =
-    "https://script.google.com/macros/s/AKfycbzE0dH0AAH339_WDYiPmQimg4UbU57_XM470e2dBmx94fBodlCkpPNvssti0jtYFbFoQg/exec"; // Replace with deployed script URL
+    "https://script.google.com/macros/s/AKfycbyiwNlzDmiqtptb9Aq08oxNg-vVsy37nBthKUYJuMUo4eSPPhXdgcmbvRDnmMp-e0csDA/exec"; // Replace with deployed script URL
 
 final groupWiseAppUrl =
     "https://script.google.com/macros/s/AKfycbyT5iNgac-vKmKRAOdRarMWsK4sfaQ4DhmswfFY_1_jl6o6hfirhdR7Zjw9ZJFNoD0z5w/exec";
@@ -98,6 +98,7 @@ class _SearchPageState extends State<SearchPage> {
       // );
 
       // final response = await http.get(uri);
+      print("response.statusCode: ${response.statusCode}");
       if (response.statusCode == 200) {
         setState(() {
           results = List<List<dynamic>>.from(json.decode(response.body));

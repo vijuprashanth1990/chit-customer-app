@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:fetch_client/fetch_client.dart';
+// import 'package:fetch_client/fetch_client.dart';
 
 void main() => runApp(PaymentListApp());
 
@@ -15,10 +15,10 @@ final GoogleSignIn _googleSignIn = GoogleSignIn(
 String? idToken = "";
 
 final paymentListAppUrl =
-    "https://script.google.com/macros/s/AKfycbybsyHLPdhyDVyo-NUahWiZ17TxRd4rMIBAgR60Z3byUn1eiywxe7bGWOl7YQwDFh3lhw/exec"; // Replace with deployed script URL
+    "https://script.google.com/macros/s/AKfycbxnpyB1LH8oouHsgYttKN-6Vfceb4-tQWVxYE5oht9OSko4bavxV3a6fLbwM_O3iNPl_g/exec"; // Replace with deployed script URL
 
 final groupWiseAppUrl =
-    "https://script.google.com/macros/s/AKfycbyT5iNgac-vKmKRAOdRarMWsK4sfaQ4DhmswfFY_1_jl6o6hfirhdR7Zjw9ZJFNoD0z5w/exec";
+    "https://script.google.com/macros/s/AKfycbw7Vn6WVtJIeiRvA76-7ffSdhHQ1npiZzL_YCHXPa7c827GmRNWEZMM5PtKdJFcDplIpw/exec";
 
 class PaymentListApp extends StatelessWidget {
   const PaymentListApp({super.key});
@@ -54,11 +54,6 @@ class _SearchPageState extends State<SearchPage> {
     setState(() => isLoading = true);
 
     try {
-      // final account = await _googleSignIn.signIn();
-      // final auth = await account?.authentication;
-      // // 👉 Send idToken to Apps Script backend for verification
-      // final idToken = auth?.idToken;
-
       final uri = Uri.parse(paymentListAppUrl).replace(
         queryParameters: {
           'idToken': idToken,
@@ -450,23 +445,23 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> {
       // // 👉 Send idToken to Apps Script backend for verification
       // final idToken = auth?.idToken;
 
-      // final url = Uri.parse(groupWiseAppUrl).replace(
-      //   queryParameters: {'idToken': idToken, 'sheet': widget.sheetName},
-      // );
+      final url = Uri.parse(groupWiseAppUrl).replace(
+        queryParameters: {'idToken': idToken, 'sheet': widget.sheetName},
+      );
 
-      // final response = await http.get(url);
+      final response = await http.get(url);
 
       // Initialize the Fetch API architecture
-      final client = FetchClient(mode: RequestMode.noCors);
+      // final client = FetchClient(mode: RequestMode.noCors);
 
-      final response = await client.post(
-        Uri.parse(groupWiseAppUrl),
-        headers: {
-          // text/plain is mandatory to bypass CORS preflight on Flutter Web
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode({'idToken': idToken, 'sheet': widget.sheetName}),
-      );
+      // final response = await client.post(
+      //   Uri.parse(groupWiseAppUrl),
+      //   headers: {
+      //     // text/plain is mandatory to bypass CORS preflight on Flutter Web
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: jsonEncode({'idToken': idToken, 'sheet': widget.sheetName}),
+      // );
 
       if (response.statusCode == 200) {
         final decoded = json.decode(response.body);
@@ -623,30 +618,30 @@ class _BiddingDetailsPageState extends State<BiddingDetailsPage> {
       // // 👉 Send idToken to Apps Script backend for verification
       // final idToken = auth?.idToken;
 
-      // final url = Uri.parse(groupWiseAppUrl).replace(
-      //   queryParameters: {
-      //     'idToken': idToken,
-      //     'func': 'lastBidding',
-      //     'groupName': widget.groupName,
-      //   },
-      // );
-
-      // final response = await http.get(url);
-
-      final client = FetchClient(mode: RequestMode.noCors);
-
-      final response = await client.post(
-        Uri.parse(groupWiseAppUrl),
-        headers: {
-          // text/plain is mandatory to bypass CORS preflight on Flutter Web
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode({
+      final url = Uri.parse(groupWiseAppUrl).replace(
+        queryParameters: {
           'idToken': idToken,
           'func': 'lastBidding',
           'groupName': widget.groupName,
-        }),
+        },
       );
+
+      final response = await http.get(url);
+
+      // final client = FetchClient(mode: RequestMode.noCors);
+
+      // final response = await client.post(
+      //   Uri.parse(groupWiseAppUrl),
+      //   headers: {
+      //     // text/plain is mandatory to bypass CORS preflight on Flutter Web
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: jsonEncode({
+      //     'idToken': idToken,
+      //     'func': 'lastBidding',
+      //     'groupName': widget.groupName,
+      //   }),
+      // );
 
       if (response.statusCode == 200) {
         final decoded = json.decode(response.body);

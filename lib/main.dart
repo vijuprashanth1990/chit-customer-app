@@ -69,30 +69,9 @@ class _SearchPageState extends State<SearchPage> {
       );
 
       // Initialize the Fetch API architecture
-      // final client = FetchClient(mode: RequestMode.noCors);
 
       final response = await http.get(uri);
 
-      // final response = await client.post(
-      //   Uri.parse(paymentListAppUrl),
-      //   headers: {
-      //     // text/plain is mandatory to bypass CORS preflight on Flutter Web
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: jsonEncode({
-      //     'idToken': idToken,
-      //     if (chitIdController.text.isNotEmpty) 'chitId': chitIdController.text,
-      //     if (englishNameController.text.isNotEmpty)
-      //       'englishName': englishNameController.text,
-      //     if (areaController.text.isNotEmpty) 'area': areaController.text,
-      //     if (agentController.text.isNotEmpty) 'agent': agentController.text,
-      //     if (phoneController.text.isNotEmpty) 'phone': phoneController.text,
-      //     if (groupController.text.isNotEmpty)
-      //       'groupNameList': groupController.text,
-      //   }),
-      // );
-
-      // final response = await http.get(uri);
       print("response.statusCode: ${response.statusCode}");
       if (response.statusCode == 200) {
         setState(() {
@@ -271,11 +250,6 @@ class DetailPage extends StatelessWidget {
         .map((s) => s.trim())
         .where((s) => s.isNotEmpty)
         .toList();
-    // var samp = row[19]
-    //     .replaceAll(RegExp(r'[\r\n]+'), '')
-    //     .replaceAll(" ", "")
-    //     .toString();
-    // print("Code: $samp");
 
     return Scaffold(
       appBar: AppBar(
@@ -440,28 +414,11 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> {
 
   Future<void> fetchGroupData() async {
     try {
-      // final account = await _googleSignIn.signIn();
-      // final auth = await account?.authentication;
-      // // 👉 Send idToken to Apps Script backend for verification
-      // final idToken = auth?.idToken;
-
       final url = Uri.parse(groupWiseAppUrl).replace(
         queryParameters: {'idToken': idToken, 'sheet': widget.sheetName},
       );
 
       final response = await http.get(url);
-
-      // Initialize the Fetch API architecture
-      // final client = FetchClient(mode: RequestMode.noCors);
-
-      // final response = await client.post(
-      //   Uri.parse(groupWiseAppUrl),
-      //   headers: {
-      //     // text/plain is mandatory to bypass CORS preflight on Flutter Web
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: jsonEncode({'idToken': idToken, 'sheet': widget.sheetName}),
-      // );
 
       if (response.statusCode == 200) {
         final decoded = json.decode(response.body);
@@ -613,11 +570,6 @@ class _BiddingDetailsPageState extends State<BiddingDetailsPage> {
 
   Future<void> fetchBiddingDetails() async {
     try {
-      // final account = await _googleSignIn.signIn();
-      // final auth = await account?.authentication;
-      // // 👉 Send idToken to Apps Script backend for verification
-      // final idToken = auth?.idToken;
-
       final url = Uri.parse(groupWiseAppUrl).replace(
         queryParameters: {
           'idToken': idToken,
@@ -627,21 +579,6 @@ class _BiddingDetailsPageState extends State<BiddingDetailsPage> {
       );
 
       final response = await http.get(url);
-
-      // final client = FetchClient(mode: RequestMode.noCors);
-
-      // final response = await client.post(
-      //   Uri.parse(groupWiseAppUrl),
-      //   headers: {
-      //     // text/plain is mandatory to bypass CORS preflight on Flutter Web
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: jsonEncode({
-      //     'idToken': idToken,
-      //     'func': 'lastBidding',
-      //     'groupName': widget.groupName,
-      //   }),
-      // );
 
       if (response.statusCode == 200) {
         final decoded = json.decode(response.body);

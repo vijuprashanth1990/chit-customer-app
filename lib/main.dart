@@ -15,7 +15,7 @@ final GoogleSignIn _googleSignIn = GoogleSignIn(
 String? idToken = "";
 
 final paymentListAppUrl =
-    "https://script.google.com/macros/s/AKfycbx39EahI4graUQDZjmO_Tk8zyR4QomSED5EEfZnp1n2j6QUL3r6GV0MPQ0PDD7a2ViivA/exec"; // Replace with deployed script URL
+    "https://script.google.com/macros/s/AKfycbybaSHhugfq27wFX0VDXKqzR4do3MUNBVjAgQPxpdjU7pl7vfG_m8p1RSjt_U2PI4S2iQ/exec"; // Replace with deployed script URL
 
 final groupWiseAppUrl =
     "https://script.google.com/macros/s/AKfycbwM5adahgmIRp15HRemmF_M880onzcgSDSczO9EOxS2qRszMw85Zsr4RvyCvV98-kc3Dw/exec";
@@ -47,6 +47,9 @@ class _SearchPageState extends State<SearchPage> {
   final agentController = TextEditingController();
   final phoneController = TextEditingController();
   final groupController = TextEditingController();
+  final payStatusController = TextEditingController(
+    text: "All",
+  ); // default value
 
   bool isLoading = false;
 
@@ -65,6 +68,9 @@ class _SearchPageState extends State<SearchPage> {
           if (phoneController.text.isNotEmpty) 'phone': phoneController.text,
           if (groupController.text.isNotEmpty)
             'groupNameList': groupController.text,
+          if (payStatusController.text.isNotEmpty &&
+              payStatusController.text != "All")
+            'payStatus': payStatusController.text,
         },
       );
 
@@ -108,6 +114,7 @@ class _SearchPageState extends State<SearchPage> {
     agentController.clear();
     phoneController.clear();
     groupController.clear();
+    payStatusController.text = "All";
 
     setState(() {
       results = []; // optional: clear results too
@@ -167,6 +174,28 @@ class _SearchPageState extends State<SearchPage> {
                     controller: groupController,
                     decoration: InputDecoration(
                       labelText: "Group Specific Name List",
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  DropdownButtonFormField<String>(
+                    initialValue: payStatusController.text,
+                    items: ["Paid", "Unpaid", "All"]
+                        .map(
+                          (value) => DropdownMenuItem(
+                            value: value,
+                            child: Text(value),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (newValue) {
+                      setState(() {
+                        payStatusController.text = newValue!;
+                      });
+                      print("Selected filter: ${payStatusController.text}");
+                    },
+                    decoration: InputDecoration(
+                      labelText: "Payment Status",
+                      border: OutlineInputBorder(),
                     ),
                   ),
 

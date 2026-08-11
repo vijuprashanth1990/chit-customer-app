@@ -41,6 +41,7 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   List<List<dynamic>> results = [];
 
+  final nameController = TextEditingController();
   final chitIdController = TextEditingController();
   final englishNameController = TextEditingController();
   final areaController = TextEditingController();
@@ -59,7 +60,7 @@ class _SearchPageState extends State<SearchPage> {
     try {
       final uri = Uri.parse(paymentListAppUrl).replace(
         queryParameters: {
-          'idToken': areaController.text, //idToken,
+          'idToken': nameController.text, //idToken,
           if (chitIdController.text.isNotEmpty) 'chitId': chitIdController.text,
           if (englishNameController.text.isNotEmpty)
             'englishName': englishNameController.text,
@@ -150,6 +151,10 @@ class _SearchPageState extends State<SearchPage> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
+                  TextField(
+                    controller: nameController,
+                    decoration: InputDecoration(labelText: "Name"),
+                  ),
                   TextField(
                     controller: chitIdController,
                     decoration: InputDecoration(labelText: "Chit ID"),

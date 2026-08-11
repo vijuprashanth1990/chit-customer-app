@@ -25,7 +25,7 @@ class PaymentListApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Sri Vignesh Chits',
+      title: 'Sri Vignesh Chit',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: SearchPage(),
     );

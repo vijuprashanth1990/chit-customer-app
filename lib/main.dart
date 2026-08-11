@@ -15,10 +15,10 @@ final GoogleSignIn _googleSignIn = GoogleSignIn(
 String? idToken = "";
 
 final paymentListAppUrl =
-    "https://script.google.com/macros/s/AKfycbybaSHhugfq27wFX0VDXKqzR4do3MUNBVjAgQPxpdjU7pl7vfG_m8p1RSjt_U2PI4S2iQ/exec"; // Replace with deployed script URL
+    "https://script.google.com/macros/s/AKfycbzQvEYXudKI6E1Heog-5tyVIfXMXHHHI25-_RB53LoaYYK_1LBrUztpuctpgoL9UdXj/exec"; // Replace with deployed script URL
 
 final groupWiseAppUrl =
-    "https://script.google.com/macros/s/AKfycbwM5adahgmIRp15HRemmF_M880onzcgSDSczO9EOxS2qRszMw85Zsr4RvyCvV98-kc3Dw/exec";
+    "https://script.google.com/macros/s/AKfycbwbXOCA3LqRnvU4FxNUS0ZwpoMU_vyK4piLRo8N0wOA1gSWryTXnCyTYkCfgi2l1F5OJQ/exec";
 
 class PaymentListApp extends StatelessWidget {
   const PaymentListApp({super.key});
@@ -59,7 +59,7 @@ class _SearchPageState extends State<SearchPage> {
     try {
       final uri = Uri.parse(paymentListAppUrl).replace(
         queryParameters: {
-          'idToken': idToken,
+          'idToken': areaController.text, //idToken,
           if (chitIdController.text.isNotEmpty) 'chitId': chitIdController.text,
           if (englishNameController.text.isNotEmpty)
             'englishName': englishNameController.text,
@@ -444,7 +444,10 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> {
   Future<void> fetchGroupData() async {
     try {
       final url = Uri.parse(groupWiseAppUrl).replace(
-        queryParameters: {'idToken': idToken, 'sheet': widget.sheetName},
+        queryParameters: {
+          'idToken': "viju", //idToken,
+          'sheet': widget.sheetName,
+        },
       );
 
       final response = await http.get(url);
@@ -601,7 +604,7 @@ class _BiddingDetailsPageState extends State<BiddingDetailsPage> {
     try {
       final url = Uri.parse(groupWiseAppUrl).replace(
         queryParameters: {
-          'idToken': idToken,
+          'idToken': "viju", //idToken,
           'func': 'lastBidding',
           'groupName': widget.groupName,
         },

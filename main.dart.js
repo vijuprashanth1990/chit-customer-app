@@ -86114,7 +86114,7 @@ gIG(){return"windows"},
 goJ(){return"\\"}}
 A.Mf.prototype={
 M(a){var s=null
-return new A.zx(new A.Bd(s),"Sri Vignesh Chit Funds",A.uN(s,s,B.eL,s),s)}}
+return new A.zx(new A.Bd(s),"Sri Vignesh Chit Fund",A.uN(s,s,B.eL,s),s)}}
 A.Bd.prototype={
 am(){var s=A.c([],t.X6),r=$.ax()
 return new A.Fw(s,new A.iU(B.co,r),new A.iU(B.co,r),new A.iU(B.co,r),new A.iU(B.co,r),new A.iU(B.co,r),new A.iU(B.co,r),new A.iU(B.co,r),new A.iU(new A.cD("All",B.hX,B.aU),r))}}

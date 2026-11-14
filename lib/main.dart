@@ -15,10 +15,10 @@ final GoogleSignIn _googleSignIn = GoogleSignIn(
 String? idToken = "";
 
 final paymentListAppUrl =
-    "https://script.google.com/macros/s/AKfycby3qNcU8jIoImwz8wb2l1o3GO1zmhowTrjfex-TBqhtc4AglNiX1lfYTM_bGyLQYZ0s/exec"; // Replace with deployed script URL
+    "https://script.google.com/macros/s/AKfycbyehejehLZFasnA-cS-Fiq2_nRPcYgZAh21VK-vcP2XAUS_c_Y5gh7OoxZ6y8e195Qe/exec"; // Replace with deployed script URL
 
 final groupWiseAppUrl =
-    "https://script.google.com/macros/s/AKfycbw3Dj3FWD6ZxAvy5tdLGQuyV0RN2dgVQZMYDxQfkU4he3sy0jpwLuFp0iwmwLcw5pVF/exec";
+    "https://script.google.com/macros/s/AKfycbwNakT7aAyWBLIfywR3tlEBrHhgcz9vijhK_mpgqv2YdDLb4S-kKvHhMQSQuPLHpuBt/exec";
 
 class PaymentListApp extends StatelessWidget {
   const PaymentListApp({super.key});
